@@ -96,7 +96,8 @@ async def trade(update: Update, context: ContextTypes.DEFAULT_TYPE, side):
         for o in oco['orderReports']:
             if o['type'] == 'STOP_LOSS': SL_exec = o['stopPrice']
             else: TP_exec = o['price']
-        await update.message.reply_text(f"BTC before: {result['cryptoBalanceBefore']}\nCash before: {result['cashBalanceBefore']}\nBought {order['executedQty']} BTC at {avg_price:.0f}\nSL: {SL_exec} | TP: {TP_exec}")
+        dir = 'Sold' if side == 'sell' else 'Bought'
+        await update.message.reply_text(f"BTC before: {result['cryptoBalanceBefore']}\nCash before: {result['cashBalanceBefore']}\n{dir} {order['executedQty']} BTC at {avg_price:.0f}\nSL: {SL_exec} | TP: {TP_exec}")
     except:
         return await update.message.reply_text("Binance order error")
 
